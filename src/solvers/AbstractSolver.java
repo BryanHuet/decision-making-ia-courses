@@ -10,7 +10,6 @@ public abstract class AbstractSolver implements Solver{
 
   public AbstractSolver(Set<Variable> affectations, Set<Constraint> constraints){
       _affectations=affectations;
-      System.out.println(affectations);
       _constraints=constraints;
   }
 
@@ -18,14 +17,18 @@ public abstract class AbstractSolver implements Solver{
     return _affectations;
   }
   public boolean isConsistent(Map<Variable, Object> varPartielles){
-    for (Constraint c : _constraints){
-      if (c.getScope()==_affectations){
-        if (! c.isSatisfiedBy(varPartielles)){
-          return false;
 
+    for (Constraint c : _constraints){
+      for(Variable v : c.getScope()){
+        if(! varPartielles.containsKey(v)){
+          return true;
         }
       }
+        if (! c.isSatisfiedBy(varPartielles)){
+          return false;
+        }
     }
+
     return true;
   }
 

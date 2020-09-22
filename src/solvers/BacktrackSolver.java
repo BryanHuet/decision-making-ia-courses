@@ -18,8 +18,8 @@ public class BacktrackSolver extends AbstractSolver{
         return false;
       }
       curseur=queue.poll();
-      if (! affectPartielle.containsKey(curseur)){
 
+      if (! affectPartielle.containsKey(curseur)){
         for(Object values: curseur.get_domaine()){
           affectPartielle.put(curseur,values);
           if (isConsistent(affectPartielle)){
@@ -40,8 +40,6 @@ public class BacktrackSolver extends AbstractSolver{
       Map<Variable,Object> solution = new HashMap<>();
       LinkedList<Variable> queue = new LinkedList<>();
       if (get_affectations() != null){
-
-          //System.out.println("\n je suis passé par là\n");
         queue.addAll(get_affectations());
         SRA(solution,queue);
       }

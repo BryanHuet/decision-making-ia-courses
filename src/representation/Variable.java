@@ -15,9 +15,6 @@ public class Variable{
   public Set<Object> get_domaine() {
     return _domaine;
   }
-public String toString(){
-  return ""+_domaine;
-}
   @Override
   public boolean equals(Object other){
     if (_name!= null && (other instanceof Variable)){
