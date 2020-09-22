@@ -17,11 +17,9 @@ public class Variable{
   }
   @Override
   public boolean equals(Object other){
-    if (_name!= null && (other instanceof Variable)){
+    if ((_name != null) && (other instanceof Variable)){
       Variable cast_other = (Variable) other;
-      if (cast_other.get_name()==_name){
-        return true;
-      }
+      return cast_other.get_name().equals(_name);
     }
     return false;
   }

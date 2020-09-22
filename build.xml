@@ -1,26 +1,31 @@
 
 
+
 <project name="decision-making-ia" default="main" basedir=".">
+
+  <property name="Main-Class" value="solvers.Test"/>
+  <property name="ClassPath" value="build/classes;ressource/solvertests.jar;ressource/representationtests.jar"/>
+
   <target name="clean">
     <delete dir="build"/>
   </target>
 
   <target name="compile">
     <mkdir dir="build/classes"/>
-    <javac srcdir="src" destdir="build/classes" classpath="ressource/solvertests.jar" includeantruntime="false"/>
+    <javac srcdir="src" destdir="build/classes" classpath="${ClassPath}" includeantruntime="false"/>
   </target>
 
   <target name="jar" depends="compile">
     <mkdir dir="build/jar"/>
     <jar destfile="build/jar/Exe.jar" basedir="build/classes">
       <manifest>
-        <attribute name="Main-Class" value="solvers.Test"/>
+        <attribute name="Main-Class" value="${Main-Class}"/>
       </manifest>
     </jar>
   </target>
 
   <target name="run" depends="compile">
-    <java classname="solvers.Test" classpath="build/classes;ressource/solvertests.jar" fork="true"/>
+    <java classname="${Main-Class}" classpath="${ClassPath}" fork="true"/>
   </target>
 
   <target name="main" depends="clean,run"/>

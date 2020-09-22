@@ -42,9 +42,8 @@ public class BacktrackSolver extends AbstractSolver{
 
     public Map<Variable,Object> solve(){
       Map<Variable,Object> solution = new HashMap<>();
-      LinkedList<Variable> queue = new LinkedList<>();
-      if (get_affectations() != null){
-        queue.addAll(get_affectations());
+        if (get_affectations() != null){
+            LinkedList<Variable> queue = new LinkedList<>(get_affectations());
         SRA(solution,queue);
       }
       return solution;

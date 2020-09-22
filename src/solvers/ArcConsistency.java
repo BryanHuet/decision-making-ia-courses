@@ -35,17 +35,19 @@ public class ArcConsistency{
     }
     return changement;
   }
-
+/*
   public static boolean enforce(Constraint c, Map<Variable,Object> domaine){
     boolean changement=false;
+    Variable v1;
+    Variable v2;
     Iterator value=c.getScope().iterator();
     do{
       changement=false;
       if (value.hasNext()){
-      Variable v1=(Variable) value.next();
+      v1=(Variable) value.next();
       }
       if(value.hasNext()){
-      Variable v2=(Variable) value.next();
+      v2=(Variable) value.next();
       }
       if (filter(v1,v1.get_domaine(),v2,v2.get_domaine(),c)){
         changement=true;
@@ -56,7 +58,7 @@ public class ArcConsistency{
 
     return changement;
   }
-
+*/
 
 
 
