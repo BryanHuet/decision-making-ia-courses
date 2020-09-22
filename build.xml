@@ -1,24 +1,24 @@
-<project name="Representation" default="main" basedir=".">
+<project name="decision-making-ia" default="main" basedir=".">
   <target name="clean">
     <delete dir="build"/>
   </target>
 
   <target name="compile">
     <mkdir dir="build/classes"/>
-    <javac srcdir="representation" destdir="build/classes" includeantruntime="false"/>
+    <javac srcdir="src" destdir="build/classes" classpath="ressource/solvertests.jar" includeantruntime="false"/>
   </target>
 
   <target name="jar" depends="compile">
     <mkdir dir="build/jar"/>
     <jar destfile="build/jar/Exe.jar" basedir="build/classes">
       <manifest>
-        <attribute name="Main-Class" value="representation.Main"/>
+        <attribute name="Main-Class" value="solvers.Test"/>
       </manifest>
     </jar>
   </target>
 
-  <target name="run" depends="jar">
-    <java jar="build/jar/Exe.jar" fork="true"/>
+  <target name="run" depends="compile">
+    <java classname="solvers.Test" classpath="build/classes;ressource/solvertests.jar" fork="true"/>
   </target>
 
   <target name="main" depends="clean,run"/>
