@@ -10,6 +10,8 @@ public class BacktrackSolver extends AbstractSolver{
 
     public BacktrackSolver(Set<Variable> affectations, Set<Constraint> constraints){
       super(affectations,constraints);
+      _affectations=affectations;
+      _constraints=constraints;
     }
 
     public boolean SRA(Map<Variable,Object> affectPartielle, LinkedList<Variable> queue){
@@ -20,15 +22,17 @@ public class BacktrackSolver extends AbstractSolver{
       curseur=queue.poll();
 
       if (! affectPartielle.containsKey(curseur)){
+        System.out.println("\nDOMAINE: "+curseur.get_domaine()+"\n");
+
         for(Object values: curseur.get_domaine()){
           affectPartielle.put(curseur,values);
           if (isConsistent(affectPartielle)){
             if (_affectations.size()==affectPartielle.size()){
+
               return true;
-            }else{
-              if (SRA(affectPartielle,queue)){
-                return true;
-              }
+            }
+            if (SRA(affectPartielle,queue)){
+              return true;
             }
           }
         }

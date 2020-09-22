@@ -8,7 +8,7 @@ public class Main{
     ok = ok && VariableTests.testEquals();
     ok = ok && VariableTests.testHashCode();
     ok = ok && BooleanVariableTests.testConstructor();
-    ok = ok && RuleTests.testIsSatisfiedBy();
+    //ok = ok && RuleTests.testIsSatisfiedBy();
     System.out.println(ok ? "All tests passed" : "At least one test failed");
 */
   }

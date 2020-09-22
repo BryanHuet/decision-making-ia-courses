@@ -1,5 +1,6 @@
 package representation;
 import java.util.*;
+
 public class BooleanVariable extends Variable{
   private String _name;
   private static Set<Object> _domaine = new HashSet<>();
