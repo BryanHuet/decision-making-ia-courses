@@ -19,6 +19,9 @@ public class DifferenceConstraint implements Constraint{
       return _scope;
     }
 
+    public String toString(){
+      return "DifferenceConstraint";
+    }
   public boolean isSatisfiedBy(Map<Variable,Object> instance){
     if (instance.containsKey(_v1) && instance.containsKey(_v2))
     {

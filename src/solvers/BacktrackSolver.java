@@ -22,9 +22,9 @@ public class BacktrackSolver extends AbstractSolver{
       curseur=queue.poll();
 
       if (! affectPartielle.containsKey(curseur)){
-        System.out.println("\nDOMAINE: "+curseur.get_domaine()+"\n");
+        System.out.println("\nDOMAINE: "+curseur.getDomain()+"\n");
 
-        for(Object values: curseur.get_domaine()){
+        for(Object values: curseur.getDomain()){
           affectPartielle.put(curseur,values);
           if (isConsistent(affectPartielle)){
             if (_affectations.size()==affectPartielle.size()){

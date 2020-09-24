@@ -35,30 +35,25 @@ public class ArcConsistency{
     }
     return changement;
   }
-/*
-  public static boolean enforce(Constraint c, Map<Variable,Object> domaine){
-    boolean changement=false;
-    Variable v1;
-    Variable v2;
+
+  public static boolean enforce(Constraint c, Map<Variable,Set<Object>> domaine){
     Iterator value=c.getScope().iterator();
-    do{
-      changement=false;
-      if (value.hasNext()){
-      v1=(Variable) value.next();
-      }
-      if(value.hasNext()){
-      v2=(Variable) value.next();
-      }
-      if (filter(v1,v1.get_domaine(),v2,v2.get_domaine(),c)){
-        changement=true;
-      }
+    Variable v1=(Variable) value.next();
+    Variable v2=(Variable) value.next();
+    boolean changement;
+    changement = filter(v1,domaine.get(v1),v2,domaine.get(v2),c) ? true : false;
+    changement = changement | filter(v2,domaine.get(v2),v1,domaine.get(v1),c) ? true : false;
+    return changement;
+  }
 
-
-    } while (changement!=false);
+  public boolean enforceArcConsistency(Map<Variable,Set<Object>> domaines){
+    boolean changement=false;
+    for (Constraint c: _constraints){
+      changement = changement | enforce(c,domaines);
+    }
 
     return changement;
   }
-*/
 
 
 

@@ -10,16 +10,23 @@ public class Variable{
     _domaine=domaine;
   }
 
-  public String get_name(){return _name;}
+  public String getName(){return _name;}
 
-  public Set<Object> get_domaine() {
+  public Set<Object> getDomain() {
     return _domaine;
+  }
+  public void set_domaine(Set<Object> domaine) {
+    _domaine=domaine;
+  }
+  public String toString(){
+    return "Name: "+_name+
+            " Domaine: "+_domaine;
   }
   @Override
   public boolean equals(Object other){
     if ((_name != null) && (other instanceof Variable)){
       Variable cast_other = (Variable) other;
-      return cast_other.get_name().equals(_name);
+      return cast_other.getName().equals(_name);
     }
     return false;
   }
