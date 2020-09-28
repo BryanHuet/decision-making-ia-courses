@@ -9,7 +9,7 @@ public class Rule implements Constraint{
   private Boolean _bool2;
   private Set<Variable> _scope = new HashSet<>();
 
-  public Rule(BooleanVariable boolVar1, Boolean bool1,BooleanVariable boolVar2, Boolean bool2){
+  public Rule(BooleanVariable boolVar1, boolean bool1,BooleanVariable boolVar2, boolean bool2){
     _boolVar1=boolVar1;
     _bool1=bool1;
     _boolVar2=boolVar2;
@@ -25,9 +25,12 @@ public class Rule implements Constraint{
   public boolean isSatisfiedBy(Map<Variable,Object> instance){
 
     if (instance.containsKey(_boolVar1) && instance.containsKey(_boolVar2))
-    {
-      return (instance.get(_boolVar1) == _bool1)
-              && (instance.get(_boolVar2) == _bool2);
+    {System.out.println(_bool1+" "+_bool2);
+      System.out.println("Instance = "+instance.get(_boolVar1)+" "+instance.get(_boolVar2));
+      if ((_bool1 && (! _bool2))&&(instance.get(_boolVar1)==instance.get(_boolVar2))){
+        return false;
+      }
+      return true;
     }
     throw new IllegalArgumentException();
   }
