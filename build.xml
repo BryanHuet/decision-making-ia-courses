@@ -3,7 +3,7 @@
 
 <project name="decision-making-ia" default="main" basedir=".">
 
-  <property name="Main-Class" value="representation.Test"/>
+  <property name="Main-Class" value="examples.HouseDemo"/>
   <property name="ClassPath" value="build/classes;ressource/solvertests.jar;ressource/representationtests.jar"/>
 
   <target name="clean">

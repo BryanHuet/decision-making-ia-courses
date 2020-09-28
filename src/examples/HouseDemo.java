@@ -3,8 +3,11 @@ package examples;
 import representation.Constraint;
 import representation.DifferenceConstraint;
 import representation.Variable;
+import solvers.BacktrackSolver;
+import solvers.Solver;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class HouseDemo {
@@ -12,6 +15,7 @@ public class HouseDemo {
         Set<String> pieces = new HashSet<String>();
         pieces.add("Chambre");
         pieces.add("Salon");
+
         HouseExample h1 = new HouseExample(10,15,pieces);
         Set<Object> o = new HashSet<>();
         o.add(pieces);

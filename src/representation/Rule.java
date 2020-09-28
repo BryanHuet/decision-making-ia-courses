@@ -25,10 +25,26 @@ public class Rule implements Constraint{
   public boolean isSatisfiedBy(Map<Variable,Object> instance){
 
     if (instance.containsKey(_boolVar1) && instance.containsKey(_boolVar2))
-    {System.out.println(_bool1+" "+_bool2);
-      System.out.println("Instance = "+instance.get(_boolVar1)+" "+instance.get(_boolVar2));
-      if ((_bool1 && (! _bool2))&&(instance.get(_boolVar1)==instance.get(_boolVar2))){
-        return false;
+    {
+      if (_bool1 && _bool2){
+        if((boolean) instance.get(_boolVar1) && ! (boolean) instance.get(_boolVar2)){
+          return false;
+        }
+      }
+      if (_bool1 && ! _bool2){
+        if ( (boolean) instance.get(_boolVar1) &&  (boolean) instance.get(_boolVar2)){
+          return false;
+        }
+      }
+      if (! _bool1 && _bool2){
+        if (! (boolean) instance.get(_boolVar1) && ! (boolean) instance.get(_boolVar2)){
+          return false;
+        }
+      }
+      if (! _bool1 && ! _bool2){
+        if (! (boolean) instance.get(_boolVar1) && (boolean) instance.get(_boolVar2)){
+          return false;
+        }
       }
       return true;
     }
