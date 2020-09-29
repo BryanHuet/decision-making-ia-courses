@@ -4,7 +4,7 @@ import representation.*;
 
 public class ArcConsistency{
 
-  Set<Constraint> _constraints;
+  private Set<Constraint> _constraints;
 
 
   public ArcConsistency(Set<Constraint>constraints){

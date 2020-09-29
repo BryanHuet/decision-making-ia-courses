@@ -5,16 +5,22 @@ import java.util.*;
 
 public abstract class AbstractSolver implements Solver{
 
-  Set<Variable> _affectations;
-  Set<Constraint> _constraints;
+  private Set<Variable> _affectations;
+  private Set<Constraint> _constraints;
 
   public AbstractSolver(Set<Variable> affectations, Set<Constraint> constraints){
       _affectations=affectations;
       _constraints=constraints;
   }
-
+  public Set<Constraint> get_constraints(){
+    return _constraints;
+  }
   public Set<Variable> get_affectations(){
     return _affectations;
+  }
+
+  public void setAffectations(Set<Variable> affectations){
+    _affectations=affectations;
   }
   public boolean isConsistent(Map<Variable, Object> varPartielles){
 

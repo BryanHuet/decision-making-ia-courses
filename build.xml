@@ -3,8 +3,8 @@
 
 <project name="decision-making-ia" default="main" basedir=".">
 
-  <property name="Main-Class" value="examples.HouseDemo"/>
-  <property name="ClassPath" value="build/classes;ressource/solvertests.jar;ressource/representationtests.jar"/>
+  <property name="Main-Class" value="planning.Test"/>
+  <property name="ClassPath" value="build/classes;ressource/solvertests.jar;ressource/representationtests.jar;ressource/planningtests.jar;"/>
 
   <target name="clean">
     <delete dir="build"/>

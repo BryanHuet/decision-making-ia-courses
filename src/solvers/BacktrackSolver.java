@@ -4,14 +4,16 @@ import representation.Constraint;
 import java.util.*;
 
 public class BacktrackSolver extends AbstractSolver{
-
-    private Set<Variable> _affectations;
-    private Set<Constraint> _constraints;
+  private Set<Variable> _affectations;
+  private Set<Constraint> _constraints;
 
     public BacktrackSolver(Set<Variable> affectations, Set<Constraint> constraints){
       super(affectations,constraints);
       _affectations=affectations;
       _constraints=constraints;
+      for(Variable v: affectations){
+        System.out.println(v);
+      }
     }
 
     public boolean SRA(Map<Variable,Object> affectPartielle, LinkedList<Variable> queue){
@@ -22,19 +24,25 @@ public class BacktrackSolver extends AbstractSolver{
       curseur=queue.poll();
 
       if (! affectPartielle.containsKey(curseur)){
-        System.out.println("\nDOMAINE: "+curseur.getDomain()+"\n");
-
-        for(Object values: curseur.getDomain()){
-          affectPartielle.put(curseur,values);
-          if (isConsistent(affectPartielle)){
-            if (_affectations.size()==affectPartielle.size()){
-
-              return true;
-            }
-            if (SRA(affectPartielle,queue)){
-              return true;
+        //System.out.println("\nDOMAINE: "+curseur.getDomain()+"\n");
+        if (! curseur.getDomain().isEmpty()){
+          for(Object values: curseur.getDomain()){
+            affectPartielle.put(curseur,values);
+            if (isConsistent(affectPartielle)){
+              if (get_affectations().size()==affectPartielle.size()){
+                return true;
+              }
+              if (SRA(affectPartielle,queue)){
+                return true;
+              }
             }
           }
+        }else{
+        affectPartielle.put(curseur,null);
+          if (SRA(affectPartielle,queue)){
+            return true;
+          }
+
         }
       }
     return false;
@@ -43,6 +51,7 @@ public class BacktrackSolver extends AbstractSolver{
     public Map<Variable,Object> solve(){
       Map<Variable,Object> solution = new HashMap<>();
         if (get_affectations() != null){
+
             LinkedList<Variable> queue = new LinkedList<>(get_affectations());
         SRA(solution,queue);
       }
