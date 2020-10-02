@@ -18,34 +18,26 @@ public class BacktrackSolver extends AbstractSolver{
 
     public boolean SRA(Map<Variable,Object> affectPartielle, LinkedList<Variable> queue){
       Variable curseur;
+      if (! isConsistent(affectPartielle)){
+        return false;
+      }
       if (queue.isEmpty()){
         return false;
       }
       curseur=queue.poll();
-
-      if (! affectPartielle.containsKey(curseur)){
-        //System.out.println("\nDOMAINE: "+curseur.getDomain()+"\n");
-        if (! curseur.getDomain().isEmpty()){
-          for(Object values: curseur.getDomain()){
-            affectPartielle.put(curseur,values);
-            if (isConsistent(affectPartielle)){
-              if (get_affectations().size()==affectPartielle.size()){
-                return true;
-              }
-              if (SRA(affectPartielle,queue)){
-                return true;
-              }
-            }
-          }
-        }else{
+      if(curseur.getDomain().isEmpty()){
         affectPartielle.put(curseur,null);
-          if (SRA(affectPartielle,queue)){
-            return true;
-          }
-
+        if(SRA(affectPartielle,queue)){
+          return false;
         }
       }
-    return false;
+      for(Object value : curseur.getDomain()){
+        affectPartielle.put(curseur,value);
+        if(SRA(affectPartielle,queue)){
+          return true;
+        }
+      }
+      return false;
     }
 
     public Map<Variable,Object> solve(){

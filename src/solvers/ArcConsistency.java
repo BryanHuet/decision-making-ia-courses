@@ -48,6 +48,9 @@ public class ArcConsistency{
 
   public boolean enforceArcConsistency(Map<Variable,Set<Object>> domaines){
     boolean changement=false;
+    if(_constraints.isEmpty()){
+      return true;
+    }
     for (Constraint c: _constraints){
       changement = changement | enforce(c,domaines);
     }

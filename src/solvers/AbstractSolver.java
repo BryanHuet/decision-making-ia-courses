@@ -23,7 +23,13 @@ public abstract class AbstractSolver implements Solver{
     _affectations=affectations;
   }
   public boolean isConsistent(Map<Variable, Object> varPartielles){
-
+    boolean ok=true;
+    for (Variable v: _affectations){
+      ok = ok && (! v.getDomain().isEmpty());
+    }
+    if(! ok){
+      return false;
+    }
     for (Constraint c : _constraints){
       for(Variable v : c.getScope()){
         if(! varPartielles.containsKey(v)){
