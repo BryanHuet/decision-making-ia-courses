@@ -25,6 +25,9 @@ public class BFSPlanner implements Planner{
     public Goal getGoal(){
       return _goal;
     }
+    public String toString(){
+      return "initial State: "+_initialState+" actions: "+_actions+" goal: "+_goal;
+    }
 
     public List<Action> getBFSPlan(Map<Map<Variable,Object>,Map<Variable,Object>> father,Map<Map<Variable,Object>,Action> plan, Map<Variable,Object> goal){
       List<Action> BFSplan=new LinkedList<>();

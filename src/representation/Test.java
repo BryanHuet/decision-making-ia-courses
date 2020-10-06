@@ -5,7 +5,7 @@ public class Test {
   public static void main(String[] args){
     System.out.println("-----------------------------------------------------------------");
     System.out.println("in representation");
-
+/*
     boolean ok = true;
     ok = ok && VariableTests.testEquals();
     ok = ok && VariableTests.testHashCode();
@@ -18,7 +18,7 @@ public class Test {
     ok = ok && BinaryExtensionConstraintTests.testIsSatisfiedBy();
     System.out.println(ok ? "All tests passed" : "At least one test failed");
     System.out.println("-----------------------------------------------------------------");
-
+*/
   }
 
 

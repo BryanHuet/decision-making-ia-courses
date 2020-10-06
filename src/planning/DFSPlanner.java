@@ -28,6 +28,7 @@ public class DFSPlanner implements Planner{
 
 
     public List<Action> DFS(Map<Variable,Object> instance,LinkedList<Action> plan, Set<Map<Variable,Object>> closed){
+      
         if (_goal.isSatisfiedBy(instance)){
           return plan;
         }

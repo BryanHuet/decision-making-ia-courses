@@ -15,6 +15,9 @@ public class BasicGoal implements Goal{
     return _goalState;
   }
 
+  public String toString(){
+    return ""+_goalState;
+  }
 
   public boolean isSatisfiedBy(Map<Variable,Object> state){
     if (_goalState.isEmpty()){

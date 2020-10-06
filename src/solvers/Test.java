@@ -28,7 +28,7 @@ public class Test{
      System.out.println(entry.getKey() + " " + entry.getValue());
   });
 */
-
+/*
 boolean ok =true;
 ok = ok && AbstractSolverTests.testIsConsistent();
 ok = ok && BacktrackSolverTests.testSolve();
@@ -38,6 +38,6 @@ ok = ok && BacktrackSolverTests.testSolve();
 System.out.println(ok ? "All tests passed" : "At least one test failed");
 
 System.out.println("-----------------------------------------------------------------");
-
+*/
   }
 }
