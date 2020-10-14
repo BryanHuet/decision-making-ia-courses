@@ -16,7 +16,8 @@ public class AStarPlanner implements Planner{
     }
 
     public List<Action> plan(){
-        return null;
+
+        return this.Astar();
     }
     public Map<Variable,Object> getInitialState(){
         return _etatInit;
@@ -34,7 +35,9 @@ public class AStarPlanner implements Planner{
         
         List<Action> planToReturn = new ArrayList<>();
         while(instance != null){
-            planToReturn.add(plan.get(instance));
+            if(plan.containsKey(instance)){
+                planToReturn.add(plan.get(instance));
+            }
             instance=father.get(instance);
         }
         Collections.reverse(planToReturn);
@@ -44,12 +47,14 @@ public class AStarPlanner implements Planner{
 
 
     public List<Action> Astar(){
+
         Map<Map<Variable,Object>,Action> plan = new HashMap<>();
         Map<Map<Variable,Object>,Map<Variable,Object>> father=new HashMap<>();
         Map<Map<Variable,Object>,Float> distance = new HashMap<>();
         Map<Map<Variable,Object>,Float> value = new HashMap<>();
         PriorityQueue<Map<Variable,Object>> open = new PriorityQueue<>(new Compare2StateH(distance,value));
-        
+
+
         open.add(_etatInit);
         father.put(_etatInit,null);
         distance.put(_etatInit,(float)0);
@@ -66,12 +71,13 @@ public class AStarPlanner implements Planner{
                         if (! distance.containsKey(next)){
                             distance.put(next,(float)10000);
                           }
-                        if(distance.get(next)>distance.get(instance)+act.getCost()){
+                        if(distance.get(next)>(distance.get(instance)+act.getCost())){
                             distance.put(next,distance.get(instance)+act.getCost());
                             value.put(next,distance.get(next)+_heuristic.estimate(next));
                             father.put(next,instance);
                             plan.put(next,act);
                         }
+                        open.add(next);
                     }
                 }
             }

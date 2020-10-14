@@ -14,10 +14,10 @@ public class Compare2StateH implements Comparator<Map<Variable,Object>>{
 
   @Override
   public int compare(Map<Variable,Object> act1, Map<Variable,Object> act2){
-    if (_dist.get(act1)+_value.get(act1)>_dist.get(act2)+_value.get(act2)){
+    if ((_dist.get(act1)+_value.get(act1)) > (_dist.get(act2)+_value.get(act2))){
       return 1;
     }else{
-      if (_dist.get(act1)+_value.get(act1)<_dist.get(act2)+_value.get(act2)){
+      if ((_dist.get(act1)+_value.get(act1)) < (_dist.get(act2)+_value.get(act2))){
         return -1;
       }
     }

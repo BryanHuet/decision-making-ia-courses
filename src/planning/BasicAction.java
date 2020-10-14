@@ -23,7 +23,7 @@ public class BasicAction implements Action{
 
 
   public String toString(){
-    return ""+_precondition;
+    return ""+_precondition+" "+_effet;
   }
   public boolean isApplicable(Map<Variable,Object> state){
     if (_precondition.isEmpty()){
