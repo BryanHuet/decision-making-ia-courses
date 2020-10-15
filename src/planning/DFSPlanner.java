@@ -27,32 +27,38 @@ public class DFSPlanner implements Planner{
     }
 
 
-    public List<Action> DFS(Map<Variable,Object> instance,LinkedList<Action> plan, Set<Map<Variable,Object>> closed){
-      
-        if (_goal.isSatisfiedBy(instance)){
+    public List<Action> DFS(Map<Variable,Object> instance,LinkedList<Action> plan,HashSet<Map<Variable,Object>> closed){
+
+    if (this.getGoal().isSatisfiedBy(instance)){
           return plan;
-        }
-        for(Action act: this.getActions()){
-          if(act.isApplicable(instance)){
-            Map<Variable,Object> next = act.successor(instance);
-            if(! closed.contains(next)){
-              closed.add(next);
-              plan.push(act);
-              List<Action> subplan = DFS(next,plan,closed);
-              if(! subplan.isEmpty()){
-                return subplan;
-              }else{
-                plan.pop();
+        }else{
+          for(Action act: this.getActions()){
+            if(act.isApplicable(instance)){
+              Map<Variable,Object> next = act.successor(instance);
+              if(! closed.contains(next)){
+                plan.push(act);
+                closed.add(next);
+                List<Action> subplan = DFS(next,plan,closed);
+                if(subplan!=null && ! subplan.isEmpty()){
+                  return subplan;
+                }else{
+                  if(! plan.isEmpty()){
+                    plan.pop();
+                  }
+                }
               }
             }
           }
-        }
-        return null;
+       }
+      return null;
     }
 
 
     public List<Action> plan(){
-      return DFS(this.getInitialState(),new LinkedList<Action>(), new HashSet<Map<Variable,Object>>());
+      LinkedList<Action> plan = new LinkedList<>();
+      HashSet<Map<Variable,Object>> closed = new HashSet<>();
+      closed.add(this.getInitialState());
+      return DFS(this.getInitialState(),plan,closed);
     }
 
 

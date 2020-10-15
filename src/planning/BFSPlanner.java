@@ -32,7 +32,9 @@ public class BFSPlanner implements Planner{
     public List<Action> getBFSPlan(Map<Map<Variable,Object>,Map<Variable,Object>> father,Map<Map<Variable,Object>,Action> plan, Map<Variable,Object> goal){
       List<Action> BFSplan=new LinkedList<>();
       while(goal!=null){
-        BFSplan.add(plan.get(goal));
+        if(plan.containsKey(goal)){
+          BFSplan.add(plan.get(goal));
+        }
         goal = father.getOrDefault(goal, null);
       }
       Collections.reverse(BFSplan);
@@ -47,7 +49,9 @@ public class BFSPlanner implements Planner{
 
       open.add(this.getInitialState());
       father.put(this.getInitialState(),null);
-
+      if(_goal.isSatisfiedBy(_initialState)){
+        return new ArrayList<>();
+      }
       while(! open.isEmpty()){
         Map<Variable,Object> instance = open.pop();
         closed.add(instance);
@@ -60,16 +64,13 @@ public class BFSPlanner implements Planner{
               father.put(next,instance);
               plan.put(next,act);
               if(this.getGoal().isSatisfiedBy(next)){
-                return this.getBFSPlan(father,plan,this.getGoal().getGoal());
+                return this.getBFSPlan(father,plan,next);
               }else{
                 open.add(next);
               }
             }
           }
         }
-      }
-      if (_goal.getGoal().isEmpty()){
-        return new ArrayList<>();
       }
       return null;
     }
