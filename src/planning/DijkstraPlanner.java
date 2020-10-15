@@ -61,6 +61,7 @@ public class DijkstraPlanner implements Planner{
       for (Action act: _actions){
         if (act.isApplicable(instance)){
           Map<Variable,Object> next = act.successor(instance);
+
           if (! distance.containsKey(next)){
             distance.put(next,10000);
           }
@@ -69,13 +70,11 @@ public class DijkstraPlanner implements Planner{
             father.put(next,instance);
             plan.put(next,act);
             open.add(next);
+
           }
         }
       }
     }
-    System.out.println(goals.isEmpty());
-
-    System.out.println(goals);
     return goals.isEmpty() ? null : this.getDijkstraPlan(father,plan,goals,distance);
   }
 

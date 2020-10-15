@@ -23,7 +23,7 @@ public class BasicAction implements Action{
 
 
   public String toString(){
-    return ""+_precondition+" "+_effet;
+    return "PRE : "+_precondition+" EFF : "+_effet;
   }
   public boolean isApplicable(Map<Variable,Object> state){
     if (_precondition.isEmpty()){
@@ -32,10 +32,11 @@ public class BasicAction implements Action{
     if (state.size()<_precondition.size()){
       return false;
     }
+    boolean ok=true;
     for (Map.Entry<Variable,Object> entry : _precondition.entrySet()) {
-      return state.containsKey(entry.getKey()) && (state.get(entry.getKey())==entry.getValue());
+      ok=ok && state.containsKey(entry.getKey()) && (state.get(entry.getKey())==entry.getValue());
     }
-    return false;
+    return ok;
   }
 
   public Map<Variable,Object> successor(Map<Variable,Object> state){

@@ -26,10 +26,11 @@ public class BasicGoal implements Goal{
     if (state.size()<_goalState.size()){
       return false;
     }
+    boolean ok=true;
     for (Map.Entry<Variable,Object> entry : _goalState.entrySet()) {
-      return state.containsKey(entry.getKey()) && (state.get(entry.getKey())==entry.getValue());
+      ok = ok && state.containsKey(entry.getKey()) && (state.get(entry.getKey())==entry.getValue());
     }
-    return false;
+    return ok;
   }
 
 

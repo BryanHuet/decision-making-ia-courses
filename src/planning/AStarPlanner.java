@@ -70,14 +70,18 @@ public class AStarPlanner implements Planner{
                         Map<Variable,Object> next = act.successor(instance);
                         if (! distance.containsKey(next)){
                             distance.put(next,(float)10000);
+
                           }
                         if(distance.get(next)>(distance.get(instance)+act.getCost())){
+
                             distance.put(next,distance.get(instance)+act.getCost());
                             value.put(next,distance.get(next)+_heuristic.estimate(next));
                             father.put(next,instance);
                             plan.put(next,act);
+                            open.add(next);
+
                         }
-                        open.add(next);
+
                     }
                 }
             }
