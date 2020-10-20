@@ -2,7 +2,7 @@ package representation;
 import java.util.Set;
 
 public class Variable{
-  public String name;
+  protected String name;
   private Set<Object> domaine;
 
   public Variable(String name, Set<Object> domaine){
