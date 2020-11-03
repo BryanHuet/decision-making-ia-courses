@@ -16,11 +16,6 @@ public abstract class AbstractItemsetMiner implements ItemsetMiner{
       return _base;
     }
 
-    @Override
-    public Set<Itemset> extract(float frequence){
-      return null;
-    }
-
     public float frequency(Set<BooleanVariable> items){
       float occurence=0;
 
@@ -34,6 +29,5 @@ public abstract class AbstractItemsetMiner implements ItemsetMiner{
       }
       return occurence/_base.getTransactions().size();
     }
-
 
 }
