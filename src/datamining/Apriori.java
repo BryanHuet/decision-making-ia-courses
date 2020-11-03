@@ -33,10 +33,16 @@ public class Apriori extends AbstractItemsetMiner{
 
     if(s1.size()==s2.size()) {
       if (!s1.isEmpty() && !s2.isEmpty()) {
-        if (s1.last() != s2.last()) {
+        if (s1.last() == s2.last()) {
           return null;
         }
+        if(s1.headSet(s1.last()).equals(s2.headSet(s2.last()))){
+          s3.addAll(s1);
+          s3.addAll(s2);
+          return s3;
+        }
       }
+
     }
     return null;
   }
