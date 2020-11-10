@@ -14,8 +14,8 @@ public class MACSolver extends AbstractSolver{
     _constraints=constraints;
   }
 
-  public Map<Variable,Object> solve(){
-    Map<Variable,Object> instanceComp = new HashMap<>();
+  public Map<Object, Object> solve(){
+    Map<Object, Object> instanceComp = new HashMap<>();
     Map<Variable,Set<Object>> instancePart = new HashMap<>();
     if (! _variables.isEmpty() && ! _constraints.isEmpty()){
       for(Variable v: _variables){

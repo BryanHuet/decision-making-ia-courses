@@ -22,7 +22,7 @@ public class Rule implements Constraint{
     return _scope;
   }
 
-  public boolean isSatisfiedBy(Map<Variable,Object> instance){
+  public boolean isSatisfiedBy(Map<Object, Object> instance){
 
     if (instance.containsKey(_boolVar1) && instance.containsKey(_boolVar2))
     {

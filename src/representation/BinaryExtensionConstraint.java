@@ -23,7 +23,7 @@ public class BinaryExtensionConstraint implements Constraint {
     return _scope;
   }
 
-  public boolean isSatisfiedBy(Map<Variable, Object> instance) {
+  public boolean isSatisfiedBy(Map<Object, Object> instance) {
     if(instance.containsKey(_v1) && instance.containsKey(_v2)){
       return _extend.contains(new BinaryTuple(instance.get(_v1), instance.get(_v2)));
     }

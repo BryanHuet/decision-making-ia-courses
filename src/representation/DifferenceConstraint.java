@@ -22,7 +22,7 @@ public class DifferenceConstraint implements Constraint{
     public String toString(){
       return "DifferenceConstraint";
     }
-  public boolean isSatisfiedBy(Map<Variable,Object> instance){
+  public boolean isSatisfiedBy(Map<Object, Object> instance){
     if (instance.containsKey(_v1) && instance.containsKey(_v2))
     {
 

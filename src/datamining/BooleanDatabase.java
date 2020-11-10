@@ -22,10 +22,10 @@ public class BooleanDatabase{
   public void add(Set<BooleanVariable> transaction){
     _transactions.add(transaction);
   }
-/*
+
   public String toString(){
     return "BooleanDatabase, avec items : "+_items+ " et transaction : "+_transactions;
   }
-*/
+
 
 }

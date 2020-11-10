@@ -17,7 +17,7 @@ public class ArcConsistency{
     for(Object v1: scopeVar1){
       boolean viable=false;
       for (Object v2: scopeVar2){
-        Map<Variable,Object> instance = new HashMap<>();
+        Map<Object, Object> instance = new HashMap<>();
         instance.put(var1,v1);
         instance.put(var2,v2);
         if(c.isSatisfiedBy(instance)){

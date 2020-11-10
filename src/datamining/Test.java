@@ -11,8 +11,8 @@ public class Test{
     ok = ok && AbstractItemsetMinerTests.testFrequency();
     ok = ok && AprioriTests.testFrequentSingletons();
     ok = ok && AprioriTests.testCombine();
-//    ok = ok && AprioriTests.testAllSubsetsFrequent();
-//    ok = ok && AprioriTests.testExtract();
+    ok = ok && AprioriTests.testAllSubsetsFrequent();
+    ok = ok && AprioriTests.testExtract();
 //    ok = ok && AbstractAssociationRuleMinerTests.testFrequency();
 //    ok = ok && AbstractAssociationRuleMinerTests.testConfidence();
 //    ok = ok && BruteForceAssociationRuleMinerTests.testAllCandidatePremises();

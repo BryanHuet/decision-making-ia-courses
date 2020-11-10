@@ -27,25 +27,41 @@ public class Apriori extends AbstractItemsetMiner{
     return frequent;
   }
 
-  public static SortedSet<BooleanVariable> combine (SortedSet<BooleanVariable> s1 ,SortedSet<BooleanVariable> s2){
+  public static SortedSet<BooleanVariable> combine (SortedSet<BooleanVariable> ensembleItem1 ,SortedSet<BooleanVariable> ensembleItem2){
 
-    SortedSet<BooleanVariable> s3 = new TreeSet<>(COMPARATOR);
+    SortedSet<BooleanVariable> ensembleItem3 = new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
 
-    if(s1.size()==s2.size()) {
-      if (!s1.isEmpty() && !s2.isEmpty()) {
-        if (s1.last() == s2.last()) {
+    if(ensembleItem1.size()==ensembleItem2.size()) {
+      if (!ensembleItem1.isEmpty() && !ensembleItem2.isEmpty()) {
+        if (ensembleItem1.last() == ensembleItem2.last()) {
           return null;
         }
-        if(s1.headSet(s1.last()).equals(s2.headSet(s2.last()))){
-          s3.addAll(s1);
-          s3.addAll(s2);
-          return s3;
+        if(ensembleItem1.headSet(ensembleItem1.last()).equals(ensembleItem2.headSet(ensembleItem2.last()))){
+          ensembleItem3.addAll(ensembleItem1);
+          ensembleItem3.addAll(ensembleItem2);
+          return ensembleItem3;
         }
       }
-
     }
     return null;
   }
+  public static  boolean allSubsetsFrequent(Set<BooleanVariable> ensembleItem, Collection<SortedSet<BooleanVariable>> collectionItem){
+    HashSet<BooleanVariable> ensemble = new HashSet<>();
+    for(BooleanVariable var : ensembleItem){
+      for(BooleanVariable var2 : ensembleItem){
+        if(var!=var2){
+          ensemble.add(var2);
+        }
+        if(! collectionItem.contains(ensemble)){
+          return false;
+        }
+      }
+      ensemble.clear();
+    }
+    return true;
+  }
+
+
 
   public String toString(){
     return "| Apriori, avec Database : "+this.getDataBase();
@@ -53,6 +69,10 @@ public class Apriori extends AbstractItemsetMiner{
 
   @Override
   public Set<Itemset> extract(float frequence) {
-    return null;
+    Set<Itemset> ensembleItem = new HashSet<>();
+
+
+
+    return frequentSingletons(frequence);
   }
 }

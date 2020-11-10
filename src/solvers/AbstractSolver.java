@@ -5,32 +5,32 @@ import java.util.*;
 
 public abstract class AbstractSolver implements Solver{
 
-  private Set<Variable> _affectations;
-  private Set<Constraint> _constraints;
+  private Set<Variable> affectations;
+  private Set<Constraint> constraints;
 
   public AbstractSolver(Set<Variable> affectations, Set<Constraint> constraints){
-      _affectations=affectations;
-      _constraints=constraints;
+      this.affectations =affectations;
+      this.constraints =constraints;
   }
-  public Set<Constraint> get_constraints(){
-    return _constraints;
+  public Set<Constraint> getConstraints(){
+    return this.constraints;
   }
-  public Set<Variable> get_affectations(){
-    return _affectations;
+  public Set<Variable> getAffectations(){
+    return this.affectations;
   }
 
   public void setAffectations(Set<Variable> affectations){
-    _affectations=affectations;
+    this.affectations =affectations;
   }
-  public boolean isConsistent(Map<Variable, Object> varPartielles){
+  public boolean isConsistent(Map<Object, Object> varPartielles){
     boolean ok=true;
-    for (Variable v: _affectations){
+    for (Variable v: affectations){
       ok = ok && (! v.getDomain().isEmpty());
     }
     if(! ok){
       return false;
     }
-    for (Constraint c : _constraints){
+    for (Constraint c : constraints){
       for(Variable v : c.getScope()){
         if(! varPartielles.containsKey(v)){
           return true;
