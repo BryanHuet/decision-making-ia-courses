@@ -4,15 +4,15 @@ import representation.BooleanVariable;
 
 import java.util.*;
 
-public class Apriori extends AbstractItemsetMiner{
+public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
 
   public Apriori(BooleanDatabase database){
     super(database);
   }
 
 
-
   public Set<Itemset> frequentSingletons(float frequence){
+
 
     Set<Itemset> frequent = new HashSet<>();
     for (BooleanVariable var : this.getDataBase().getItems()){
@@ -69,10 +69,23 @@ public class Apriori extends AbstractItemsetMiner{
 
   @Override
   public Set<Itemset> extract(float frequence) {
+
     Set<Itemset> ensembleItem = new HashSet<>();
 
 
+    List<SortedSet<BooleanVariable>> listFrequent = new ArrayList<>();
+    SortedSet<BooleanVariable> booleanVariables=new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
 
-    return frequentSingletons(frequence);
+    for(Itemset itemset:this.frequentSingletons(frequence)){
+      listFrequent.add((SortedSet<BooleanVariable>) itemset.getItems());
+      if (Apriori.allSubsetsFrequent(itemset.getItems(),listFrequent)){
+        return null;
+
+      }
+
+
+    }
+
+    return ensembleItem;
   }
 }
