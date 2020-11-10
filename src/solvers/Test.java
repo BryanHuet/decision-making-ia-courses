@@ -10,8 +10,8 @@ public class Test{
 
 
 boolean ok =true;
-ok = ok && AbstractSolverTests.testIsConsistent();
-ok = ok && BacktrackSolverTests.testSolve();
+//ok = ok && AbstractSolverTests.testIsConsistent();
+//ok = ok && BacktrackSolverTests.testSolve();
 //ok = ok && ArcConsistencyTests.testEnforce();
 //ok = ok && ArcConsistencyTests.testEnforceArcConsistency();
 //ok = ok && MACSolverTests.testSolve();

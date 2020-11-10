@@ -33,7 +33,7 @@ public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
 
     if(ensembleItem1.size()==ensembleItem2.size()) {
       if (!ensembleItem1.isEmpty() && !ensembleItem2.isEmpty()) {
-        if (ensembleItem1.last() == ensembleItem2.last()) {
+        if (ensembleItem1.last().equals(ensembleItem2.last())) {
           return null;
         }
         if(ensembleItem1.headSet(ensembleItem1.last()).equals(ensembleItem2.headSet(ensembleItem2.last()))){
@@ -45,18 +45,14 @@ public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
     }
     return null;
   }
-  public static  boolean allSubsetsFrequent(Set<BooleanVariable> ensembleItem, Collection<SortedSet<BooleanVariable>> collectionItem){
-    HashSet<BooleanVariable> ensemble = new HashSet<>();
+  public static boolean allSubsetsFrequent(Set<BooleanVariable> ensembleItem, Collection<SortedSet<BooleanVariable>> collectionItem){
+    HashSet<BooleanVariable> ensemble = new HashSet<>(ensembleItem);
     for(BooleanVariable var : ensembleItem){
-      for(BooleanVariable var2 : ensembleItem){
-        if(var!=var2){
-          ensemble.add(var2);
-        }
+        ensemble.remove(var);
         if(! collectionItem.contains(ensemble)){
           return false;
         }
-      }
-      ensemble.clear();
+      ensemble.add(var);
     }
     return true;
   }
@@ -71,19 +67,37 @@ public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
   public Set<Itemset> extract(float frequence) {
 
     Set<Itemset> ensembleItem = new HashSet<>();
+    ensembleItem.add(new Itemset(new HashSet<>(),1.f)); //ajout ensemble vide
 
 
     List<SortedSet<BooleanVariable>> listFrequent = new ArrayList<>();
-    SortedSet<BooleanVariable> booleanVariables=new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
 
-    for(Itemset itemset:this.frequentSingletons(frequence)){
-      listFrequent.add((SortedSet<BooleanVariable>) itemset.getItems());
-      if (Apriori.allSubsetsFrequent(itemset.getItems(),listFrequent)){
-        return null;
+    for(Itemset itemset:this.frequentSingletons(frequence)) {
+      ensembleItem.add(itemset);
+      SortedSet<BooleanVariable> booleanVariables = new TreeSet<>(AbstractItemsetMiner.COMPARATOR);
 
+      booleanVariables.addAll(itemset.getItems());
+
+      listFrequent.add(booleanVariables);
+
+    }
+
+    for(int i=2;i<=this.getDataBase().getItems().size();i++){
+      List<SortedSet<BooleanVariable>> listFrequent2 = new ArrayList<>();
+      for(int j=0; j<listFrequent.size();j++){
+        for(int k=j+1;k<listFrequent.size();k++){
+          SortedSet<BooleanVariable> beCombine = combine(listFrequent.get(j), listFrequent.get(k));
+          System.out.println("JE SUIS LA");
+          if(beCombine!=null && allSubsetsFrequent(beCombine,listFrequent)){
+            float freq = super.frequency(beCombine);
+            if(freq>=frequence){
+              ensembleItem.add(new Itemset(beCombine,freq));
+              listFrequent2.add(beCombine);
+            }
+          }
+        }
       }
-
-
+      listFrequent=listFrequent2;
     }
 
     return ensembleItem;
