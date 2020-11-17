@@ -87,7 +87,6 @@ public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
       for(int j=0; j<listFrequent.size();j++){
         for(int k=j+1;k<listFrequent.size();k++){
           SortedSet<BooleanVariable> beCombine = combine(listFrequent.get(j), listFrequent.get(k));
-          System.out.println("JE SUIS LA");
           if(beCombine!=null && allSubsetsFrequent(beCombine,listFrequent)){
             float freq = super.frequency(beCombine);
             if(freq>=frequence){
