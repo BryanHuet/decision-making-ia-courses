@@ -67,7 +67,7 @@ public class Apriori extends AbstractItemsetMiner implements ItemsetMiner{
   public Set<Itemset> extract(float frequence) {
 
     Set<Itemset> ensembleItem = new HashSet<>();
-    ensembleItem.add(new Itemset(new HashSet<>(),1.f)); //ajout ensemble vide
+    //ensembleItem.add(new Itemset(new HashSet<>(),1.f)); //ajout ensemble vide n'est plus necessaire avec la nouvelle librairie
 
 
     List<SortedSet<BooleanVariable>> listFrequent = new ArrayList<>();
