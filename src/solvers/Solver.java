@@ -4,7 +4,7 @@ import representation.Variable;
 
 public interface Solver{
 
-  Map<Object, Object> solve();
+  Map<Variable, Object> solve();
 
 
 }

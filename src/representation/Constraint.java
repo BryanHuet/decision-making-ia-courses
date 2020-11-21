@@ -3,7 +3,7 @@ import java.util.*;
 public interface Constraint{
 
   Set<Variable> getScope();
-  boolean isSatisfiedBy(Map<Object, Object> instance);
+  boolean isSatisfiedBy(Map<Variable, Object> instance);
 
 
 }

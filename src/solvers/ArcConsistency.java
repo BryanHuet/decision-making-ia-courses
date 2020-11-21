@@ -17,7 +17,7 @@ public class ArcConsistency{
     for(Object v1: scopeVar1){
       boolean viable=false;
       for (Object v2: scopeVar2){
-        Map<Object, Object> instance = new HashMap<>();
+        Map<Variable, Object> instance = new HashMap<>();
         instance.put(var1,v1);
         instance.put(var2,v2);
         if(c.isSatisfiedBy(instance)){
@@ -41,8 +41,8 @@ public class ArcConsistency{
     Variable v1=(Variable) value.next();
     Variable v2=(Variable) value.next();
     boolean changement;
-    changement = filter(v1,domaine.get(v1),v2,domaine.get(v2),c) ? true : false;
-    changement = changement | filter(v2,domaine.get(v2),v1,domaine.get(v1),c) ? true : false;
+    changement = filter(v1, domaine.get(v1), v2, domaine.get(v2), c);
+    changement = changement | filter(v2, domaine.get(v2), v1, domaine.get(v1), c);
     return changement;
   }
 

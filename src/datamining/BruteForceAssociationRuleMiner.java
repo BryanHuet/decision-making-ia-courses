@@ -18,7 +18,7 @@ public class BruteForceAssociationRuleMiner extends AbstractAssociationRuleMiner
         for(BooleanVariable value : candidat){
             final Set<Set<BooleanVariable>> newSets = new HashSet<>(sets);
             for(Set<BooleanVariable> set : sets){
-                final Set<BooleanVariable> newSet = new HashSet<>(set);
+                Set<BooleanVariable> newSet = new HashSet<>(set);
                 newSet.add(value);
                 newSets.add(newSet);
             }
