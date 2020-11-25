@@ -27,13 +27,10 @@ public abstract class AbstractSolver implements Solver {
 
   public boolean isConsistent(Map<Variable, Object> varPartielles) {
     for (Constraint c : constraints) {
-      for(Variable var : c.getScope()){
-        if(! varPartielles.containsKey(var)){
+      if(varPartielles.keySet().containsAll(c.getScope())){
+        if (!c.isSatisfiedBy(varPartielles)) {
           return false;
         }
-      }
-      if (!c.isSatisfiedBy(varPartielles)) {
-        return false;
       }
     }
     return true;
