@@ -12,5 +12,5 @@ You can do it with [ant apache](https://ant.apache.org/).
 
 or without
 - mkdir build
-- java -d "build"  -cp "ressource/solvertests.jar;ressource/representationtests.jar;ressource/planningtests.jar;ressource/dataminingtests.jar"  $(find . -name "*.java")
+- javac -d "build"  -cp "ressource/solvertests.jar;ressource/representationtests.jar;ressource/planningtests.jar;ressource/dataminingtests.jar"  $(find . -name "*.java")
 - java -cp  "build;ressource/solvertests.jar;ressource/representationtests.jar;ressource/planningtests.jar;ressource/dataminingtests.jar"  src.[packageToTest].Test
