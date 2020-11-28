@@ -13,6 +13,12 @@ public class BooleanVariable extends Variable{
   }
 
   public Set<Object>getDomain(){return domaine;}
-
-
+  @Override
+  public boolean equals(Object other){
+    if ((this.name != null) && (other instanceof BooleanVariable)){
+      BooleanVariable cast_other = (BooleanVariable) other;
+      return cast_other.getName().equals(this.name);
+    }
+    return false;
+  }
 }

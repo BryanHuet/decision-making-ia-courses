@@ -4,24 +4,24 @@ import java.util.Set;
 import representation.BooleanVariable;
 public class Itemset{
 
-  private Set<BooleanVariable> _items;
-  private float _frequence;
+  private Set<BooleanVariable> items;
+  private float frequence;
 
   public Itemset(Set<BooleanVariable> items, float frequence){
-    _items=items;
-    _frequence=frequence;
+    this.items =items;
+    this.frequence =frequence;
   }
 
   public Set<BooleanVariable> getItems(){
-    return _items;
+    return this.items;
   }
   public float getFrequency(){
-    return _frequence;
+    return this.frequence;
   }
 
 
   public String toString(){
-    return "ItemSet avec items : "+_items+" et frequence : "+_frequence;
+    return "ItemSet avec items : "+ this.items +" et frequence : "+ this.frequence;
   }
 
 }

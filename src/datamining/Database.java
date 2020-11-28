@@ -49,7 +49,26 @@ public class Database {
         for (Map.Entry<Variable,Map<Object, BooleanVariable>> entry : this.itemTable().entrySet()) {
             construct.addAll(entry.getValue().values());
         }
-        return new BooleanDatabase(construct);
+        construct.remove(null);
+        BooleanDatabase bd = new BooleanDatabase(construct);
+        if(!this.getInstances().isEmpty()){
+            for(Map<Variable,Object> instance : this.getInstances()){
+                Set<BooleanVariable> transaction = new HashSet<>();
+                for(Map.Entry<Variable,Object> entry : instance.entrySet()){
+                    if(entry.getKey() instanceof BooleanVariable){
+                        if((Boolean) entry.getValue()){
+                        transaction.add((BooleanVariable) entry.getKey());
+                        }
+                    }else{
+                        if(entry.getKey().getDomain().contains(entry.getValue())){
+                            transaction.add(new BooleanVariable(entry.getKey().getName()+entry.getValue().toString()));
+                        }
+                    }
+                }
+                bd.add(transaction);
+            }
+        }
+        return bd;
     }
 
 }

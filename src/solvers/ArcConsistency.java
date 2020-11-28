@@ -4,11 +4,11 @@ import representation.*;
 
 public class ArcConsistency{
 
-  private Set<Constraint> _constraints;
+  private Set<Constraint> constraints;
 
 
   public ArcConsistency(Set<Constraint>constraints){
-    _constraints=constraints;
+    this.constraints =constraints;
   }
 
   public static boolean filter(Variable var1, Set<Object> scopeVar1, Variable var2, Set<Object> scopeVar2, Constraint c){
@@ -47,15 +47,16 @@ public class ArcConsistency{
   }
 
   public boolean enforceArcConsistency(Map<Variable,Set<Object>> domaines){
-    boolean changement=false;
-    if(_constraints.isEmpty()){
-      return true;
-    }
-    for (Constraint c: _constraints){
-      changement = changement | enforce(c,domaines);
+    for (Constraint c: constraints){
+      enforce(c,domaines);
     }
 
-    return changement;
+    for(Map.Entry<Variable,Set<Object>> entry : domaines.entrySet()){
+      if(entry.getValue().isEmpty()){
+        return false;
+      }
+    }
+    return true;
   }
 
 
