@@ -43,11 +43,11 @@ public class Tests {
 
         System.out.println("Testing package \"solvers\"...");
         ok = ok && AbstractSolverTests.testIsConsistent();
-//        ok = ok && BacktrackSolverTests.testSolve();
+        ok = ok && BacktrackSolverTests.testSolve();
         ok = ok && ArcConsistencyTests.testFilter();
         ok = ok && ArcConsistencyTests.testEnforce();
         ok = ok && ArcConsistencyTests.testEnforceArcConsistency();
-//        ok = ok && MACSolverTests.testSolve();
+        ok = ok && MACSolverTests.testSolve();
 //        ok = ok && HeuristicMACSolverTests.testSolve();
 //        ok = ok && NbConstraintsVariableHeuristicTests.testBest();
 //        ok = ok && DomainSizeVariableHeuristicTests.testBest();

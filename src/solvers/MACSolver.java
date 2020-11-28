@@ -18,7 +18,9 @@ public class MACSolver extends AbstractSolver{
     Map<Variable,Set<Object>> instancePart = new HashMap<>();
       for(Variable v: this.getAffectations()){
           instancePart.put(v,v.getDomain());
-         (new ArcConsistency(this.getConstraints())).enforceArcConsistency(instancePart);
+         if(! (new ArcConsistency(this.getConstraints())).enforceArcConsistency(instancePart)) {
+          return instanceComp;
+         }
       }
     for(Variable v: this.getAffectations()){
       if (! v.getDomain().isEmpty()){
