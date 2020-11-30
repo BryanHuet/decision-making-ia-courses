@@ -21,9 +21,9 @@ public abstract class AbstractAssociationRuleMiner implements AssociationRuleMin
         this.database = database;
     }
 
-    public static float frequency(Set<BooleanVariable> items, Set<Itemset> frequent){
-        for(Itemset itemset: frequent){
-            if(itemset.getItems().equals(items)){
+    public static float frequency(Set<BooleanVariable> items, Set<Itemset> frequent) {
+        for (Itemset itemset : frequent) {
+            if (itemset.getItems().equals(items)) {
                 return itemset.getFrequency();
             }
         }
@@ -31,29 +31,29 @@ public abstract class AbstractAssociationRuleMiner implements AssociationRuleMin
     }
 
     public static float confidence(Set<BooleanVariable> premise, Set<BooleanVariable> conclusion,
-                                   Set<Itemset> frequent){
+                                   Set<Itemset> frequent) {
 
-        float frequencePremise=1;
-        float frequenceConclusion=1;
+        float frequencePremise = 1;
+        float frequenceConclusion = 1;
 
-        Set<BooleanVariable> premiseConclu=new HashSet<>();
+        Set<BooleanVariable> premiseConclu = new HashSet<>();
         premiseConclu.addAll(conclusion);
         premiseConclu.addAll(premise);
 
-        for(Itemset itemset: frequent){
-            if(itemset.getItems().equals(premise)){
-                frequencePremise=itemset.getFrequency();
-            }else{
-                if(itemset.getItems().equals(premiseConclu)){
-                    frequenceConclusion=itemset.getFrequency();
+        for (Itemset itemset : frequent) {
+            if (itemset.getItems().equals(premise)) {
+                frequencePremise = itemset.getFrequency();
+            } else {
+                if (itemset.getItems().equals(premiseConclu)) {
+                    frequenceConclusion = itemset.getFrequency();
                 }
             }
         }
 
-        if(conclusion.isEmpty()){
+        if (conclusion.isEmpty()) {
             return 1;
         }
 
-        return frequenceConclusion/frequencePremise;
+        return frequenceConclusion / frequencePremise;
     }
 }

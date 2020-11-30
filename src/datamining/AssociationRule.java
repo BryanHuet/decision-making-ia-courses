@@ -4,7 +4,7 @@ import representation.BooleanVariable;
 
 import java.util.Set;
 
-public class AssociationRule{
+public class AssociationRule {
 
     private Set<BooleanVariable> premise;
     private Set<BooleanVariable> conclusion;

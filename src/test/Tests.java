@@ -1,3 +1,4 @@
+package test;
 
 import dataminingtests.AbstractAssociationRuleMinerTests;
 import dataminingtests.AbstractItemsetMinerTests;

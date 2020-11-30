@@ -1,14 +1,15 @@
 package planning;
 
 import java.util.Map;
+
 import representation.Variable;
 
 
+public interface Goal {
 
-public interface Goal{
+    boolean isSatisfiedBy(Map<Variable, Object> state);
 
-  boolean isSatisfiedBy(Map<Variable,Object> state);
-  Map<Variable,Object> getGoal();
+    Map<Variable, Object> getGoal();
 
 
 }
