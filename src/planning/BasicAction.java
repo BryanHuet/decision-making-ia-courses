@@ -43,8 +43,7 @@ public class BasicAction implements Action {
     }
 
     public Map<Variable, Object> successor(Map<Variable, Object> state) {
-        Map<Variable, Object> state2 = new HashMap<>();
-        state2.putAll(state);
+        Map<Variable, Object> state2 = new HashMap<>(state);
         for (Map.Entry<Variable, Object> entry : effet.entrySet()) {
             state2.put(entry.getKey(), entry.getValue());
         }

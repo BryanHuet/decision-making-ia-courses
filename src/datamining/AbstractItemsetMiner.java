@@ -3,11 +3,13 @@ package datamining;
 import java.util.*;
 
 import representation.BooleanVariable;
+import representation.Variable;
 
 public abstract class AbstractItemsetMiner implements ItemsetMiner {
 
-    private BooleanDatabase base;
-    public static final Comparator<BooleanVariable> COMPARATOR = (var1, var2) -> var1.getName().compareTo(var2.getName());
+    private final BooleanDatabase base;
+    //public static final Comparator<BooleanVariable> COMPARATOR = (var1, var2) -> var1.getName().compareTo(var2.getName());
+    public static final Comparator<BooleanVariable> COMPARATOR = Comparator.comparing(Variable::getName);
 
     public AbstractItemsetMiner(BooleanDatabase base) {
         this.base = base;

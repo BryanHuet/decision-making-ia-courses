@@ -1,8 +1,13 @@
 package examples;
 
+import datamining.AssociationRule;
+import datamining.BruteForceAssociationRuleMiner;
+import datamining.Database;
+import planning.*;
 import representation.*;
 import solvers.BacktrackSolver;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -10,15 +15,17 @@ import java.util.Set;
 public class HouseDemo {
     public static void main(String[] args) {
         essaiePetiteMaison();
+        essaiePlanification();
+        essaieDatamining();
     }
 
     public static void essaiePetiteMaison() {
 
-        System.out.println("---------- BacktrackSolver sur une maison de 9m2 ----------");
+        System.out.println("---------- BacktrackSolver sur une maison de 9m2 ----------\n");
 
         Set<Object> pieces = new HashSet<>();
 
-        HouseExample maison = new HouseExample(10, 15);
+        HouseExample maison = new HouseExample(9, 9);
 
 
         Variable dalleHumide = new BooleanVariable("Dalle humide");
@@ -88,11 +95,121 @@ public class HouseDemo {
                     piece3.getName() + " : " + solution.get(piece3));
         }
 
-        System.out.println("---------------------------------------------------------------");
+        //System.out.println("---------------------------------------------------------------");
     }
 
     public static void essaiePlanification() {
-        System.out.println("---------- BacktrackSolver sur une maison de 9m2 ----------");
+        System.out.println("\n------- Planification des pieces sur une petite maison -------\n");
+
+        Set<Object> pieces = new HashSet<>();
+        HouseExample maison = new HouseExample(10, 15);
+        Set<Action> actions = new HashSet<>();
+        Map<Variable, Object> solution = new HashMap<>();
+        Map<Variable, Object> goalState = new HashMap<>();
+
+        pieces.add("Chambre");
+        pieces.add("Salon");
+        pieces.add("Toilettes");
+        pieces.add("Cuisine");
+        pieces.add("Salle de Bain");
+        pieces.add("Chambre 2");
+
+        for (int i = 0; i < pieces.size(); i++) {
+            Variable piece = new Variable("piece " + i, pieces);
+            maison.addVariable(piece);
+            solution.put(piece, null);
+            goalState.put(piece, "Chambre");
+            for (int j = 0; j < pieces.size(); j++) {
+                for (int k = 0; k < pieces.size(); k++) {
+                    for (Object p : pieces) {
+                        Map<Variable, Object> precondition = new HashMap<>();
+                        precondition.put(piece, null);
+                        Map<Variable, Object> effet = new HashMap<>();
+                        effet.put(piece, p);
+                        actions.add(new BasicAction(precondition, effet, 5));
+                    }
+                }
+            }
+        }
+
+        Goal goal = new BasicGoal(goalState);
+        Heuristic heuristic = new Heuristic() {
+            @Override
+            public float estimate(Map<Variable, Object> state) {
+                float value = 0;
+                for (Map.Entry<Variable, Object> entry : state.entrySet()) {
+                    if (entry.getValue() == null) {
+                        value += 10;
+                    }
+                }
+                return value;
+            }
+        };
+
+        AStarPlanner as = new AStarPlanner(solution, actions, new DifferenceGoal(), heuristic);
+        for (Action act : as.plan()) {
+            System.out.println(act);
+        }
+
+        //System.out.println("---------------------------------------------------------------");
+    }
+
+    public static void essaieDatamining() {
+        System.out.println("\n-------- Extraction de regle sur des petites maisons ---------\n");
+
+        Set<Variable> variables = new HashSet<>();
+        Set<Object> pieces = new HashSet<>();
+        Database base = new Database(variables);
+        Variable piece11 = new Variable("Piece (1,1) ", pieces);
+        Variable piece12 = new Variable("Piece (1,2) ", pieces);
+        Variable piece01 = new Variable("Piece (0,1) ", pieces);
+        Variable piece02 = new Variable("Piece (0,2) ", pieces);
+
+        pieces.add("Chambre 1");
+        pieces.add("Salon");
+        pieces.add("Toilettes");
+        pieces.add("Cuisine");
+        pieces.add("Salle de Bain");
+        pieces.add("Chambre 2");
+
+        variables.add(piece11);
+        variables.add(piece12);
+        variables.add(piece01);
+        variables.add(piece02);
+
+        for (int i = 0; i < 100; i++) {
+            Map<Variable, Object> instance = new HashMap<>();
+            instance.put(piece11, "Chambre 1");
+            instance.put(piece12, "Chambre 2");
+            Map<Variable, Object> instance2 = new HashMap<>();
+            instance2.put(piece01, "Salle de Bain");
+            instance2.put(piece02, "Cuisine");
+            if (i % 10 == 0) {
+                instance.put(piece11, "Chambre 1");
+                instance.put(piece12, "Salle de Bain");
+                instance2.put(piece01, "Cuisine");
+                instance2.put(piece02, "Chambre 2");
+
+            }
+            base.add(instance);
+            base.add(instance2);
+        }
+
+        BruteForceAssociationRuleMiner bf = new BruteForceAssociationRuleMiner(base.propositionalize());
+
+        System.out.println("Regles de frequence et confiance minimum de 40% :");
+        for (AssociationRule regle : bf.extract((float) 0.4, (float) 0.4)) {
+            System.out.println(regle);
+        }
+
+        System.out.println("\nRegle de frequence et confiance minimum de 0.1% :");
+        for (AssociationRule regle : bf.extract((float) 0.001, (float) 0.001)) {
+            System.out.println(regle);
+        }
+
+
         System.out.println("---------------------------------------------------------------");
+
+
     }
 }

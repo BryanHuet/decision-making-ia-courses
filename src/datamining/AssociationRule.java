@@ -49,4 +49,9 @@ public class AssociationRule {
     public void setConfidence(float confidence) {
         this.confidence = confidence;
     }
+
+    public String toString() {
+        return "Premise : " + premise +
+                " Conclu : " + conclusion;
+    }
 }

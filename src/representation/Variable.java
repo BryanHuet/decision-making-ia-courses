@@ -24,8 +24,11 @@ public class Variable {
     }
 
     public String toString() {
+        /*
         return "Name: " + this.name +
                 " Domaine: " + this.domaine;
+        */
+        return "Name: " + this.name;
     }
 
     @Override
